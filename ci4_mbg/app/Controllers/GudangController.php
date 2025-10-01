@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Controllers;
-
+use App\Models\BahanBakuModel;
 class GudangController extends BaseController
 {
     public function dashboard()
@@ -10,5 +10,10 @@ class GudangController extends BaseController
         echo "<p>Anda login sebagai Petugas Gudang.</p>";
         echo '<a href="/gudang/bahan">Lihat Bahan Baku</a><br>';
         echo '<a href="/logout">Logout</a>';
+    }
+
+    public function bahan()
+    {
+        
     }
 }

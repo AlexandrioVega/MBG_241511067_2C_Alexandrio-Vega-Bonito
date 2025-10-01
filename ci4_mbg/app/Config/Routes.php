@@ -15,6 +15,7 @@ $routes->get('/logout', 'AuthController::logout');
 // Grup untuk Gudang (Admin)
 $routes->group('gudang', ['filter' => 'auth:gudang'], function($routes) {
     $routes->get('dashboard', 'GudangController::dashboard');
+    $routes->get('gudang/bahan', 'GudangController::bahan');
 });
 
 // Grup untuk Dapur (Client)

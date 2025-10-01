@@ -16,17 +16,22 @@ class AuthController extends BaseController
         return view('login');
     }
 
+    // Fungsi untuk memproses login setelah user mengisi form.
     public function attemptLogin()
     {
         $session = session();
+        // Membuka objek session (tempat menyimpan data login).
         $userModel = new UserModel();
+        // Membuat objek UserModel supaya bisa akses tabel user.
 
         $email = $this->request->getPost('email');
         $password = $this->request->getPost('password');
+        // Ambil input dari form login: email dan password.
+        // getPost = ambil data dari form metode POST
 
         $user = $userModel->getUserByEmail($email);
+        // Cari data user di database berdasarkan email.
 
-        // Gunakan md5() sesuai data dummy, untuk production gunakan password_verify()
         if ($user && md5($password) === $user['password']) {
             $sessionData = [
                 'user_id'    => $user['id'],
@@ -46,6 +51,7 @@ class AuthController extends BaseController
             $session->setFlashdata('error', 'Email atau Password salah.');
             return redirect()->back()->withInput();
         }
+        //Kalau user ditemukan dan password yang diinput (setelah diubah ke MD5) cocok dengan password di database → login berhasil.
     }
 
     public function logout()
