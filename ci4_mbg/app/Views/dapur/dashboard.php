@@ -98,7 +98,7 @@ Dashboard Dapur
                                                 <span class="badge <?= $badge_class ?>"><?= ucfirst($status) ?></span>
                                             </td>
                                             <td>
-                                                <a href="#" class="btn btn-info btn-sm" title="Lihat Detail"><i class="bi bi-eye"></i></a>
+                                                <a href="/dapur/permintaan/detail/<?= $permintaan['id'] ?>" class="btn btn-info btn-sm" title="Lihat Detail"><i class="bi bi-eye"></i></a>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>

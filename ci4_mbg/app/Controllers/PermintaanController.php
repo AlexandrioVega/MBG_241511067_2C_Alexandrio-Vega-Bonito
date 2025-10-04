@@ -80,4 +80,37 @@ class PermintaanController extends BaseController
             return redirect()->back()->withInput();
         }
     }
+
+     public function index()
+    {
+        $permintaanModel = new PermintaanModel();
+        $userId = session()->get('user_id');
+
+        $data['permintaan_list'] = $permintaanModel
+            ->where('pemohon_id', $userId)
+            ->orderBy('created_at', 'DESC')
+            ->findAll();
+        
+        return view('dapur/permintaan/index', $data);
+    }
+
+    public function detail($id)
+    {
+        $permintaanModel = new PermintaanModel();
+        $permintaanDetailModel = new PermintaanDetailModel();
+        $userId = session()->get('user_id');
+        $permintaan = $permintaanModel->find($id);     
+        if (!$permintaan || $permintaan['pemohon_id'] != $userId) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('Permintaan tidak ditemukan atau Anda tidak memiliki akses.');
+        }
+
+        $data['permintaan'] = $permintaan;
+        $data['detail_bahan'] = $permintaanDetailModel
+            ->select('permintaan_detail.*, bahan_baku.nama as bahan_nama, bahan_baku.satuan')
+            ->join('bahan_baku', 'bahan_baku.id = permintaan_detail.bahan_id')
+            ->where('permintaan_detail.permintaan_id', $id)
+            ->findAll();
+
+        return view('dapur/permintaan/detail', $data);
+    }
 }

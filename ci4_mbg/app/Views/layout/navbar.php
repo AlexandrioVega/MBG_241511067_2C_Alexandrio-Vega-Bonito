@@ -22,7 +22,7 @@ $role = session()->get('role');
                         <a class="nav-link <?= ($uri->getSegment(2) == 'dashboard') ? 'active' : '' ?>" href="/dapur/dashboard">Dashboard</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link <?= ($uri->getSegment(2) == 'permintaan') ? 'active' : '' ?>" href="/dapur/permintaan/create">Buat Permintaan</a>
+                        <a class="nav-link <?= ($uri->getSegment(2) == 'permintaan') ? 'active' : '' ?>" href="/dapur/permintaan">Buat Permintaan</a>
                     </li>
                 <?php endif; ?>
             </ul>

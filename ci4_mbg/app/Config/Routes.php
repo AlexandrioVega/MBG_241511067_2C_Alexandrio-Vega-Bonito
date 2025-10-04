@@ -28,4 +28,6 @@ $routes->group('dapur', ['filter' => 'auth:dapur'], function($routes) {
     $routes->get('dashboard', 'DapurController::dashboard');
     $routes->get('permintaan/create', 'PermintaanController::create');
     $routes->post('permintaan/store', 'PermintaanController::store');
+    $routes->get('permintaan', 'PermintaanController::index'); 
+    $routes->get('permintaan/detail/(:num)', 'PermintaanController::detail/$1'); // Detail satu permintaan
 });
