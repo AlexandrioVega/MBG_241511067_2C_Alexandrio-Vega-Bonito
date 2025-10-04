@@ -11,7 +11,12 @@ class GudangController extends BaseController
 
     public function bahan()
     {
-        echo "Halaman Daftar Bahan Baku (akan dibuat)";
+        $model = new BahanBakuModel();
+       
+        // Panggil method baru yang sudah kita buat di model
+        $data['bahan_baku_list'] = $model->getAllWithCalculatedStatus();
+
+       return view('gudang/bahan/index', $data);
     }
 
     public function create()
