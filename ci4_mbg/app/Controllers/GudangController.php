@@ -66,4 +66,44 @@ class GudangController extends BaseController
         return redirect()->to('/gudang/bahan');
 
     }
+
+    public function edit($id)
+    {
+        helper('form');
+        $model = new BahanBakuModel();
+        $data['bahan'] = $model->find($id);
+
+        if (!$data['bahan']) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('Bahan baku tidak ditemukan.');
+        }
+        return view('gudang/bahan/edit', $data);
+    }
+
+    public function update($id)
+    {
+        helper('form');
+        
+        // Aturan validasi: hanya untuk jumlah
+        $rules = [
+            'jumlah' => 'required|numeric|greater_than_equal_to[0]'
+        ];
+
+        if (!$this->validate($rules)) {
+            // Jika validasi gagal, kembalikan ke form edit dengan error
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+        }
+
+        // Jika validasi berhasil
+        $model = new BahanBakuModel();
+        
+        $data = [
+            'jumlah' => $this->request->getPost('jumlah'),
+        ];
+
+        $model->update($id, $data);
+
+        session()->setFlashdata('success', 'Stok bahan baku berhasil diperbarui.');
+
+        return redirect()->to('/gudang/bahan');
+    }
 }

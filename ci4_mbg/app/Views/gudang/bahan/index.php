@@ -73,7 +73,7 @@ Daftar Bahan Baku
                                                 <span class="badge <?= $badge_class ?>"><?= ucfirst(str_replace('_', ' ', $status)) ?></span>
                                             </td>
                                             <td>
-                                                <a href="#" class="btn btn-warning btn-sm" title="Edit"><i class="bi bi-pencil"></i></a>
+                                                <a href="/gudang/bahan/edit/<?= $bahan['id'] ?>" class="btn btn-warning btn-sm" title="Edit"><i class="bi bi-pencil"></i></a>
                                                 <a href="#" class="btn btn-danger btn-sm" title="Hapus"><i class="bi bi-trash"></i></a>
                                             </td>
                                         </tr>

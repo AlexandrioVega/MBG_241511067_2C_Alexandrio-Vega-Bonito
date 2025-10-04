@@ -18,6 +18,8 @@ $routes->group('gudang', ['filter' => 'auth:gudang'], function($routes) {
     $routes->get('bahan', 'GudangController::bahan');
     $routes->get('bahan/create', 'GudangController::create');
     $routes->post('bahan/store', 'GudangController::store'); 
+    $routes->get('bahan/edit/(:num)', 'GudangController::edit/$1'); // Menampilkan form edit
+    $routes->post('bahan/update/(:num)', 'GudangController::update/$1'); // Memproses update
 });
 
 // Grup untuk Dapur (Client)
