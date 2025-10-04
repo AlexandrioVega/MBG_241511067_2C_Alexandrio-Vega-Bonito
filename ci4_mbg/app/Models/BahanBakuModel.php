@@ -25,4 +25,13 @@ class BahanBakuModel extends Model
         
         return $this->orderBy('nama', 'ASC')->findAll();
     }
+    
+    public function getBahanTersedia()
+    {
+        $today = date('Y-m-d');
+        return $this->where('jumlah >', 0)
+                    ->where('tanggal_kadaluarsa >=', $today)
+                    ->orderBy('nama', 'ASC')
+                    ->findAll();
+    }
 }

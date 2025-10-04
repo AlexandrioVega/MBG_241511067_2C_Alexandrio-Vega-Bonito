@@ -73,8 +73,19 @@ Daftar Bahan Baku
                                                 <span class="badge <?= $badge_class ?>"><?= ucfirst(str_replace('_', ' ', $status)) ?></span>
                                             </td>
                                             <td>
-                                                <a href="/gudang/bahan/edit/<?= $bahan['id'] ?>" class="btn btn-warning btn-sm" title="Edit"><i class="bi bi-pencil"></i></a>
-                                                <a href="#" class="btn btn-danger btn-sm" title="Hapus"><i class="bi bi-trash"></i></a>
+                                                <a href="/gudang/bahan/edit/<?= $bahan['id'] ?>" class=="btn btn-warning btn-sm" title="Update Stok"><i class="bi bi-pencil"></i></a> 
+                                                <form action="/gudang/bahan/delete/<?= $bahan['id'] ?>" method="post" class="d-inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus bahan ini?');">
+                                                    <?= csrf_field() ?>
+                                                    <button type="submit" 
+                                                            class="btn btn-danger btn-sm" 
+                                                            title="Hapus"
+                                                            <?php if ($bahan['status_terhitung'] !== 'kadaluarsa'): ?>
+                                                                disabled 
+                                                                onclick="event.preventDefault(); alert('Hanya bahan kadaluarsa yang bisa dihapus.');"
+                                                            <?php endif; ?>>
+                                                        <i class="bi bi-trash"></i>
+                                                    </button>
+                                                </form>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>

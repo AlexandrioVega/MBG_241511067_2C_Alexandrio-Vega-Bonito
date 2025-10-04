@@ -106,4 +106,36 @@ class GudangController extends BaseController
 
         return redirect()->to('/gudang/bahan');
     }
+
+    // buat delete bahan baku
+    public function delete($id)
+    {
+        $model = new BahanBakuModel();
+        $bahan = $model->find($id);
+
+        if (!$bahan) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('Bahan baku tidak ditemukan.');
+        }
+
+        // Hitung status terkini sebelum menghapus
+        $today = date('Y-m-d');
+        $status_terhitung = 'tersedia'; // Default
+        if ($bahan['jumlah'] <= 0) {
+            $status_terhitung = 'habis';
+        } elseif ($bahan['tanggal_kadaluarsa'] < $today) {
+            $status_terhitung = 'kadaluarsa';
+        }
+
+        // Validasi sesuai aturan di PDF
+        if ($status_terhitung !== 'kadaluarsa') {
+            session()->setFlashdata('error', 'Hanya bahan yang sudah kadaluarsa yang boleh dihapus.');
+            return redirect()->to('/gudang/bahan');
+        }
+
+        // Jika lolos validasi, hapus data
+        $model->delete($id);
+
+        session()->setFlashdata('success', 'Bahan baku berhasil dihapus.');
+        return redirect()->to('/gudang/bahan');
+    }
 }
