@@ -23,7 +23,7 @@ class GudangController extends BaseController
     {
         // Helper 'form' diperlukan untuk validation_errors() di view
         helper('form');
-        return view('gudang/create_bahan');
+        return view('gudang/bahan/create');
     }
 
     public function store(){
